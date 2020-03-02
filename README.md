@@ -1,0 +1,1 @@
+start mongo using : sudo systemctl start mongod
