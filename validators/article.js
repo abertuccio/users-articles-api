@@ -4,7 +4,7 @@ async function articleValidation(model, article) {
 
     if (!article.hasOwnProperty("userId") ||
         !article.hasOwnProperty("title") ||
-        !!article.hasOwnProperty("text") ||
+        !article.hasOwnProperty("text") ||
         !article.hasOwnProperty("tags")) {
 
         validation.errors.push(`You shoud send the request 
