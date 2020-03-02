@@ -1,0 +1,23 @@
+{
+  "name": "users-articles-api",
+  "version": "1.0.0",
+  "description": "API to manage users and articles",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abertuccio/users-articles-api.git"
+  },
+  "author": "Andrés Bertuccio",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abertuccio/users-articles-api/issues"
+  },
+  "homepage": "https://github.com/abertuccio/users-articles-api#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.2"
+  }
+}
