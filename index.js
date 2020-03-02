@@ -1,14 +1,13 @@
 var express = require('express');
 var app = express();
-app.use(express.json()) // for parsing application/json
-// app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+app.use(express.json());
 
 var services = require('./services/services');
 
 app.post('/new-user', function (req, res) {
 
     if(!req.headers['content-type'].includes("application/json")){
-        res.send("You should send the request using  the content-type application/json:(");
+        res.send({errors:["You should send the request using the content-type application/json :("], valid:false});
         return;
     }
 
@@ -16,13 +15,25 @@ app.post('/new-user', function (req, res) {
         .then((insertRersaponse) => {
             res.send({ created: insertRersaponse, errors: [], valid: true });
         }).catch((err) => {
-            res.send(JSON.stringify(err));
+            res.send(err);
         });
 
 });
 
 app.post('/new-article', function (req, res) {
-    res.send('New Article');
+    
+    if(!req.headers['content-type'].includes("application/json")){
+        res.send({errors:["You should send the request using the content-type application/json :("], valid:false});
+        return;
+    }
+
+    services.createArticle(req.body)
+        .then((insertRersaponse) => {
+            res.send({ created: insertRersaponse, errors: [], valid: true });
+        }).catch((err) => {
+            res.send(err);
+        });
+
 });
 
 app.post('/delete-article', function (req, res) {

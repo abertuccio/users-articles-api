@@ -1,4 +1,5 @@
 var createUser = require('./createUser');
+var createArticle = require('./createArticle');
 
 
-module.exports = {createUser};
+module.exports = {createUser,createArticle};

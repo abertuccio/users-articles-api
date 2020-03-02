@@ -1,4 +1,4 @@
-async function userValidation(model, user) {
+async function articleValidation(model, article) {
 
     let validation = { errors: [], valid: false };
     const defaultAvatarURL = "https://api.adorable.io/avatars/285/abott@adorable.png";
@@ -40,4 +40,4 @@ async function userValidation(model, user) {
 
 }
 
-module.exports = userValidation;
+module.exports = articleValidation;
