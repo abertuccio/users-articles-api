@@ -6,8 +6,6 @@ async function createUser(newUser) {
 
     const validationResult = await validation(User, newUser);
 
-    console.log(validationResult);
-
     if (validationResult.valid) {
 
         var user = new User(newUser);

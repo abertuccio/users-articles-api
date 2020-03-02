@@ -15,14 +15,14 @@ async function userValidation(model, user) {
     user.avatar = (user.hasOwnProperty("avatar") && user.avatar.trim().length) ? user.avatar : defaultAvatarURL;
 
     if (!/^[a-z ]{3,15}$/gi.test(user.name)) {
-        validation.errors.push('"Name" it is not correct, you shoud use from 3 to 15 english letters and spaces');
+        validation.errors.push('"Name" is not correct, you shoud use from 3 to 15 english letters and spaces');
         validation.valid = false;
     }
     else {
 
         if (!/^((https?:)(\/\/\/?)([\w]*(?::[\w]*)?@)?([\d\w\.-]+)(?::(\d+))?)?([\/\\\w\.()-]*)?(?:([?][^#]*)?(#.*)?)*/gi.test(user.avatar)) {
             user.avatar = defaultAvatarURL;
-            validation.errors.push('"Avatar" it is not a valid URL');
+            validation.errors.push('"Avatar" is not a valid URL');
         }
 
         if (validation.valid) {
@@ -36,7 +36,7 @@ async function userValidation(model, user) {
 
     }
 
-    return { errors: [], valid: true };
+    return validation;
 
 }
 
