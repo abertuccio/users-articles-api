@@ -4,23 +4,31 @@ async function userValidation(model, user) {
     const defaultAvatarURL = "https://api.adorable.io/avatars/285/abott@adorable.png";
 
 
-    if(!user.hasOwnProperty("name")){
-        validation.errors.push("You shoud send the request using the format {name: String (3 to 15 english letters), avatar: String (valid url)}");
+    if (!Object.prototype.hasOwnProperty.call(user, "name")) {
+        validation.errors.push(`You shoud send the request using the format 
+        {
+            name: String, 
+            avatar: String
+        }`);
+
         validation.valid = false;
         return validation;
-    } 
+    }
 
 
     user.name = user.name.trim();
-    user.avatar = (user.hasOwnProperty("avatar") && user.avatar.trim().length) ? user.avatar : defaultAvatarURL;
+    user.avatar = (Object.prototype.hasOwnProperty.call(user, "avatar") &&
+        user.avatar.trim().length) ? user.avatar : defaultAvatarURL;
 
     if (!/^[a-z ]{3,15}$/gi.test(user.name)) {
-        validation.errors.push('"Name" is not correct, you shoud use from 3 to 15 english letters and spaces');
+        validation.errors.push(`name property is not correct, 
+        you shoud use from 3 to 15 english letters and spaces`);
         validation.valid = false;
     }
     else {
 
-        if (!/^((https?:)(\/\/\/?)([\w]*(?::[\w]*)?@)?([\d\w\.-]+)(?::(\d+))?)?([\/\\\w\.()-]*)?(?:([?][^#]*)?(#.*)?)*/gi.test(user.avatar)) {
+        if (!/^((https?:)(\/\/\/?)([\w]*(?::[\w]*)?@)?([\d\w.-]+)(?::(\d+))?)?([/\\\w.()-]*)?(?:([?][^#]*)?(#.*)?)*/gi
+            .test(user.avatar)) {
             user.avatar = defaultAvatarURL;
             validation.errors.push('"Avatar" is not a valid URL');
         }

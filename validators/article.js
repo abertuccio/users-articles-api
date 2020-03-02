@@ -2,10 +2,10 @@ async function articleValidation(model, article) {
 
     let validation = { errors: [], valid: false };
 
-    if (!article.hasOwnProperty("userId") ||
-        !article.hasOwnProperty("title") ||
-        !article.hasOwnProperty("text") ||
-        !article.hasOwnProperty("tags")) {
+    if (!Object.prototype.hasOwnProperty.call(article, "userId") ||
+        !Object.prototype.hasOwnProperty.call(article, "title") ||
+        !Object.prototype.hasOwnProperty.call(article, "text") ||
+        !Object.prototype.hasOwnProperty.call(article, "tags")) {
 
         validation.errors.push(`You shoud send the request 
                                 using the format: 

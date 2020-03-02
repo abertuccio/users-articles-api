@@ -1,11 +1,11 @@
 {
     "env": {
-        "browser": true,
+        "browser": false,
         "commonjs": true,
         "es6": true
     },
     "extends": [
-        "google"
+        "eslint:recommended"
     ],
     "globals": {
         "Atomics": "readonly",
