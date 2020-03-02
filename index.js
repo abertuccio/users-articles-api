@@ -1,12 +1,24 @@
 var express = require('express');
 var app = express();
+app.use(express.json()) // for parsing application/json
+// app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
-var schemes = require('./schemes/schemes');
-
-console.log(schemes);
+var services = require('./services/services');
 
 app.post('/new-user', function (req, res) {
-    res.send('New User');
+
+    if(!req.headers['content-type'].includes("application/json")){
+        res.send("You should send the request using  the content-type application/json:(");
+        return;
+    }
+
+    services.createUser(req.body)
+        .then((insertRersaponse) => {
+            res.send({ created: insertRersaponse, errors: [], valid: true });
+        }).catch((err) => {
+            res.send(JSON.stringify(err));
+        });
+
 });
 
 app.post('/new-article', function (req, res) {
