@@ -1,5 +1,6 @@
-var createUser = require('./createUser');
-var createArticle = require('./createArticle');
+const createUser = require('./createUser');
+const createArticle = require('./createArticle');
+const auth = require('./auth');
 
 
-module.exports = {createUser,createArticle};
+module.exports = { createUser, createArticle, auth };

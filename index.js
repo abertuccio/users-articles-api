@@ -5,11 +5,11 @@ const dotenv = require('dotenv');
 dotenv.config();
 var services = require('./services/services');
 const errMsg = require('./errors/errorHandler');
+const riskStatusCode = (process.env.ENV !== 'dev') ? 500 : 200;
 
 app.use(function (err, req, res, next) {
     if (err) {
-        const statusCode = (process.env.ENV !== 'dev')?500:200;
-        res.status(statusCode).send(errMsg(0));
+        res.status(riskStatusCode).send(errMsg(0));
         return;
     }
     next();
@@ -20,6 +20,13 @@ app.use('/', function (req, res, next) {
         res.send(errMsg(1));
         return;
     }
+    const auth = services.auth(req.body);
+
+    if (!auth.valid) {
+        res.status(riskStatusCode).send(auth);
+        return;
+    }
+
     next();
 });
 
@@ -27,7 +34,7 @@ app.post('/new-user', function (req, res) {
 
     services.createUser(req.body)
         .then((insertRersaponse) => {
-            const created = {name:insertRersaponse.name,avatar:insertRersaponse.avatar};
+            const created = { name: insertRersaponse.name, avatar: insertRersaponse.avatar };
             res.send({ created: created, error: '', valid: true });
         }).catch((err) => {
             res.send(err);

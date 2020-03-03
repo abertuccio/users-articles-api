@@ -22,6 +22,15 @@ function errorMessaje(code) {
         case 4:
             defaultError.error = "Invalid avatar value. Please review the documentation.";
             break;
+        case 5:
+            defaultError.error = "There is no token sent. Please review the documentation.";
+            break;
+        case 6:
+            defaultError.error = "Invalid Token format.";
+            break;
+        case 7:
+            defaultError.error = "Invalid Token.";
+            break;
         default:
             break;
     }
