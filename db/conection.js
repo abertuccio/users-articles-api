@@ -1,7 +1,10 @@
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test', { useNewUrlParser: true, useUnifiedTopology: true });
+const mongoose = require('mongoose');
+const databaseURL = process.env.DATABASE_URL;
+const database = process.env.DATABASE;
 
-var db = mongoose.connection;
+mongoose.connect(databaseURL+database, { useNewUrlParser: true, useUnifiedTopology: true });
+
+const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {

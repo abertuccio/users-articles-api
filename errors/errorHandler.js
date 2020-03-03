@@ -22,9 +22,6 @@ function errorMessaje(code) {
         case 4:
             defaultError.error = "Invalid avatar value. Please review the documentation.";
             break;
-        case 5:
-            defaultError.error = "This name already exist! Please choose another.";
-            break;
         default:
             break;
     }

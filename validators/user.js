@@ -24,7 +24,7 @@ async function userValidation(model, user) {
 
     var prevUser = await model.findOne({ name: user.name }).exec();
 
-    return (prevUser) ? errMsg(5) : { error: '', valid: true };
+    return (prevUser) ? { error: 'This name already exist! Please choose another.', valid: false } : { error: '', valid: true };
 
 }
 

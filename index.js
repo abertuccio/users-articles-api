@@ -8,7 +8,8 @@ const errMsg = require('./errors/errorHandler');
 
 app.use(function (err, req, res, next) {
     if (err) {
-        res.status(500).send(errMsg(0));
+        const statusCode = (process.env.ENV !== 'dev')?500:200;
+        res.status(statusCode).send(errMsg(0));
         return;
     }
     next();
