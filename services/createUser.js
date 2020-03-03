@@ -1,5 +1,5 @@
-var User = require('../schemes/user').User;
-var validation = require('../validators/user');
+const User = require('../schemes/user').User;
+const validation = require('../validators/user');
 
 
 async function createUser(newUser) {
@@ -8,12 +8,12 @@ async function createUser(newUser) {
 
     if (validationResult.valid) {
 
-        var user = new User(newUser);
-
-        return user.save();
+        return new User(newUser).save();
     }
     else {
+
         throw validationResult;
+
     }
 
 
