@@ -1,32 +1,33 @@
 var express = require('express');
 var app = express();
 app.use(express.json());
-
+const dotenv = require('dotenv');
+dotenv.config();
 var services = require('./services/services');
+const errMsg = require('./errors/errorHandler');
 
-app.use(function(err, req, res, next){
-    if(err){
-        res.status(500).send({ error: 'Invalid request', valid: false });
+app.use(function (err, req, res, next) {
+    if (err) {
+        res.status(500).send(errMsg(0));
         return;
     }
     next();
 });
 
 app.use('/', function (req, res, next) {
-    
     if (!req.headers['content-type'].includes("application/json")) {
-        res.send({ error: 'You should send the request using the content-type application/json :(', valid: false });
+        res.send(errMsg(1));
         return;
     }
     next();
-    
 });
 
 app.post('/new-user', function (req, res) {
 
     services.createUser(req.body)
         .then((insertRersaponse) => {
-            res.send({ created: insertRersaponse, error: '', valid: true });
+            const created = {name:insertRersaponse.name,avatar:insertRersaponse.avatar};
+            res.send({ created: created, error: '', valid: true });
         }).catch((err) => {
             res.send(err);
         });
@@ -36,8 +37,8 @@ app.post('/new-user', function (req, res) {
 app.post('/new-article', function (req, res) {
 
     services.createArticle(req.body)
-        .then((insertRersaponse) => {
-            res.send({ created: insertRersaponse, error: '', valid: true });
+        .then(() => {
+            res.send({ created: "Ok", error: '', valid: true });
         }).catch((err) => {
             res.send(err);
         });
@@ -52,4 +53,4 @@ app.get('/articles', function (req, res) {
     res.send('List all articles');
 });
 
-app.listen(3000);
+app.listen(process.env.PORT);
