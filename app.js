@@ -12,7 +12,6 @@ app.use(function(req,res){
 });
 
 app.use(function (err, req, res, next) {
-    // console.log(err);
     if (err) {
         res.status(500).send(errMsg(0));
         return;
