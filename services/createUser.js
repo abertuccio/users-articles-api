@@ -1,4 +1,4 @@
-const User = require('../schemes/user').User;
+const User = require('../model/user').User;
 const validation = require('../validators/user');
 
 

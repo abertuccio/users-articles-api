@@ -1,4 +1,4 @@
-var Article = require('../schemes/article').User;
+var Article = require('../model/article').User;
 var validation = require('../validators/article');
 
 
