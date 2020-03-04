@@ -31,6 +31,9 @@ function errorMessaje(code) {
         case 7:
             defaultError.error = `(${code}) Invalid Token.`;
             break;
+        case 8:
+            defaultError.error = `(${code}) Invalid endpoint. Please review the documentation.`;
+            break;
         default:
             break;
     }

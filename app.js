@@ -7,6 +7,10 @@ const errMsg = require('./errors/errorHandler');
 
 app.use('/api', services);
 
+app.use(function(req,res){
+    res.status(404).send(errMsg(8));
+});
+
 app.use(function (err, req, res, next) {
     if (err) {
         res.status(500).send(errMsg(0));
@@ -15,5 +19,4 @@ app.use(function (err, req, res, next) {
     next();
 });
 
-
-app.listen(process.env.PORT, ()=>{ console.log("Server running") });
+module.exports = app;
