@@ -2,16 +2,12 @@ function errorMessaje(code) {
 
     let defaultError = { error: 'Invalid request', valid: false };
 
-    if (process.env.ENV !== 'dev') {
-        return defaultError;
-    }
-
     switch (code) {
         case 0:
             defaultError.error = `(${code}) Wrong request format, you are probably sending a broken JSON.`;
             break;
         case 1:
-            defaultError.error = `(${code}) You should send the request using the content-type application/json header`;
+            defaultError.error = `(${code}) You must send a json, and the request header must be using the content-type application/json`;
             break;
         case 2:
             defaultError.error = `(${code}) Invalid request. You are not sending the minimun required parameter name. Please review the documentation.`;

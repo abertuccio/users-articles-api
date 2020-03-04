@@ -7,11 +7,12 @@ const errMsg = require('./errors/errorHandler');
 
 app.use('/api', services);
 
-app.use(function(req,res){
+app.use(function(req,res){ 
     res.status(404).send(errMsg(8));
 });
 
 app.use(function (err, req, res, next) {
+    // console.log(err);
     if (err) {
         res.status(500).send(errMsg(0));
         return;

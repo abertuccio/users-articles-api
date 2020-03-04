@@ -1,8 +1,22 @@
 const User = require('../model/user').User;
+const authentication = require('./auth');
 const validation = require('../validators/user');
+const errMsg = require('../errors/errorHandler');
 
 
 function createUser(req, res) {
+
+    if (!req.headers['content-type'].includes("application/json")) {
+        res.send(errMsg(1));
+        return;
+    }
+
+    const auth = authentication(req.body);
+
+    if (!auth.valid) {
+        res.status(500).send(auth);
+        return;
+    }
 
     validation(User, req.body).then(async (validation) => {
         if (validation.valid) {
@@ -11,7 +25,7 @@ function createUser(req, res) {
             res.send({ created: created, error: '', valid: true });
         }
         else {
-            res.status(500).send(validation);
+            res.send(validation);
             return;
         }
     })
