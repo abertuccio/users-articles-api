@@ -2,18 +2,20 @@ const User = require('../model/user').User;
 const validation = require('../validators/user');
 
 
-async function createUser(newUser) {
+function createUser(req, res) {
 
-    const validationResult = await validation(User, newUser);
-
-    if (validationResult.valid) {
-        return new User(newUser).save();
-    }
-    else {
-        throw validationResult;
-    }
-
-
+    validation(User, req.body).then(async (validation) => {
+        if (validation.valid) {
+            const inserted = await new User(req.body).save();
+            console.log(inserted);
+            const created = { name: inserted.name, avatar: inserted.avatar };
+            res.send({ created: created, error: '', valid: true });
+        }
+        else {
+            res.status(500).send(validation);
+            return;
+        }
+    })
 }
 
 module.exports = createUser;

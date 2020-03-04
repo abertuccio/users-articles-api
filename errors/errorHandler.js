@@ -8,28 +8,28 @@ function errorMessaje(code) {
 
     switch (code) {
         case 0:
-            defaultError.error = "Wrong request format, you are probably sending a broken JSON.";
+            defaultError.error = `(${code}) Wrong request format, you are probably sending a broken JSON.`;
             break;
         case 1:
-            defaultError.error = "You should send the request using the content-type application/json header";
+            defaultError.error = `(${code}) You should send the request using the content-type application/json header`;
             break;
         case 2:
-            defaultError.error = "Invalid request. You are not sending the minimun required parameter name. Please review the documentation.";
+            defaultError.error = `(${code}) Invalid request. You are not sending the minimun required parameter name. Please review the documentation.`;
             break;
         case 3:
-            defaultError.error = "Invalid name value. Please review the documentation.";
+            defaultError.error = `(${code}) Invalid name value. Please review the documentation.`;
             break;
         case 4:
-            defaultError.error = "Invalid avatar value. Please review the documentation.";
+            defaultError.error = `(${code}) Invalid avatar value. Please review the documentation.`;
             break;
         case 5:
-            defaultError.error = "There is no token sent. Please review the documentation.";
+            defaultError.error = `(${code}) There is no token sent. Please review the documentation.`;
             break;
         case 6:
-            defaultError.error = "Invalid Token format.";
+            defaultError.error = `(${code}) Invalid Token format.`;
             break;
         case 7:
-            defaultError.error = "Invalid Token.";
+            defaultError.error = `(${code}) Invalid Token.`;
             break;
         default:
             break;
