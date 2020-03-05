@@ -1,0 +1,15 @@
+version: '3'
+services:
+  api:
+    build: .
+    depends_on: 
+      - db
+    build: .
+    network_mode: "host" 
+  db:
+    image: "mongo:4.0.14"
+    expose: 
+      - "27017" 
+    volumes:
+      - ./mongodata:/data/db
+    network_mode: "host" 
