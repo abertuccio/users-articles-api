@@ -4,6 +4,7 @@
   "description": "API to manage users and articles",
   "main": "start.js",
   "scripts": {
+    "start": "node start",
     "test": "jest"
   },
   "repository": {
