@@ -1,6 +1,6 @@
 const User = require('../model/user').User;
 const authentication = require('./auth');
-const validation = require('../validators/user').default;
+const validation = require('../validators/user');
 const errMsg = require('../errors/errorHandler');
 
 

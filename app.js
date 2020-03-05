@@ -9,7 +9,7 @@ app.use(function(req,res){
     res.status(404).send(errMsg(8));
 });
 
-app.use(function (err, req, res, next) {
+app.use(function (err, req, res, next) {    
     if (err) {
         res.status(500).send(errMsg(0));
         return;
