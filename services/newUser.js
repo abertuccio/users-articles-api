@@ -1,10 +1,10 @@
 const User = require('../model/user').User;
 const authentication = require('./auth');
-const validation = require('../validators/user');
+const validation = require('../validators/user').default;
 const errMsg = require('../errors/errorHandler');
 
 
-function createUser(req, res) {
+function newUser(req, res) {
 
     if (!req.headers['content-type'].includes("application/json")) {
         res.send(errMsg(1));
@@ -31,4 +31,4 @@ function createUser(req, res) {
     })
 }
 
-module.exports = createUser;
+module.exports = newUser;

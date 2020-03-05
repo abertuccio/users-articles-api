@@ -1,15 +1,15 @@
 const  express = require('express');
 const router = express.Router();
-const createUser = require('./createUser');
-const createArticle = require('./createArticle');
-const auth = require('./auth');
 router.use(express.json());
 
-const services = {createUser,createArticle,auth};
+const newUser = require('./newUser');
+const newArticle = require('./newArticle');
 
-router.post('/new-user', services.createUser);
+const services = {newUser,newArticle};
 
-router.post('/new-article', services.createArticle);
+router.post('/new-user', services.newUser);
+
+router.post('/new-article', services.newArticle);
 
 router.delete('/delete-article', function (req, res) {
     res.send('Delete Article');

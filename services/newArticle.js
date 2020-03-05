@@ -2,7 +2,7 @@ var Article = require('../model/article').User;
 var validation = require('../validators/article');
 
 
-async function createArticle(newArticle) {
+async function newArticle(newArticle) {
 
     const validationResult = await validation(Article, newArticle);
 
@@ -19,4 +19,4 @@ async function createArticle(newArticle) {
 
 }
 
-module.exports = createArticle;
+module.exports = newArticle;
