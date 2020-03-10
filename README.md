@@ -2,7 +2,7 @@ Edit/create a file .env in the root of this project and put this:
 
 ENV=dev / prod
 PORT=3000
-DATABASE_URL=mongodb://localhost/
+DATABASE_URL=localhost/
 DATABASE=usersArticlesApi
 TOKEN=1CD1ED11111C11FE11B111A111D11
 
