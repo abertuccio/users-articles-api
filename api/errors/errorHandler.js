@@ -31,10 +31,25 @@ function errorMessaje(code) {
         case 8:
             defaultError.error = `(${code}) Invalid endpoint. Please review the documentation.`;
             break;
+        case 10:
+            defaultError.error = `(${code}) Invalid userId. Please review the documentation.`;
+            break;
+        case 11:
+            defaultError.error = `(${code}) Invalid title. Please review the documentation.`;
+            break;
+        case 12:
+            defaultError.error = `(${code}) Invalid text. Please review the documentation.`;
+            break;
+        case 13:
+            defaultError.error = `(${code}) Invalid tags. Please review the documentation.`;
+            break;
+        case 14:
+            defaultError.error = `(${code}) Invalid user. Please provide a valid user.`;
+            break;
         default:
             break;
     }
-   
+
     return defaultError;
 
 }
