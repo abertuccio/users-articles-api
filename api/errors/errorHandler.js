@@ -10,6 +10,7 @@ function errorMessaje(code) {
             defaultError.error = `(${code}) You must send a json, and the request header must be using the content-type application/json`;
             break;
         case 2:
+        case 9:
             defaultError.error = `(${code}) Invalid request. You are not sending the minimun required parameter name. Please review the documentation.`;
             break;
         case 3:
@@ -33,7 +34,7 @@ function errorMessaje(code) {
         default:
             break;
     }
-
+   
     return defaultError;
 
 }

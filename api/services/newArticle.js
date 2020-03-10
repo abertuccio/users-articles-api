@@ -1,22 +1,34 @@
-var Article = require('../model/article').User;
-var validation = require('../validators/article');
+const Article = require('../model/article');
+const User = require('../model/user');
+const authentication = require('./auth');
+const validation = require('../validators/article');
+const errMsg = require('../errors/errorHandler');
 
 
-async function newArticle(newArticle) {
+function newArticle(req, res) {
 
-    const validationResult = await validation(Article, newArticle);
-
-    if (validationResult.valid) {
-
-        var article = new Article(newArticle);
-
-        return article.save();
-    }
-    else {
-        throw validationResult;
+    if (!req.headers['content-type'].includes("application/json")) {
+        res.send(errMsg(1));
+        return;
     }
 
+    const auth = authentication(req.body);
 
+    if (!auth.valid) {
+        res.status(500).send(auth);
+        return;
+    }
+
+    validation(User, req.body).then(async (validation) => {
+        if (validation.valid) {
+            await new Article(req.body).save();
+            res.send({ created: 'OK', error: '', valid: true });
+        }
+        else {
+            res.send(validation);
+            return;
+        }
+    })
 }
 
 module.exports = newArticle;
