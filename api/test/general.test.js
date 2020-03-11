@@ -27,7 +27,7 @@ test('Wrong route endpoint', async () => {
 });
 
 test('Wrong route endpoint /api/', async () => {
-    const response = await request.get('/api/whatever');
+    const response = await request.get('/api/whatever');   
     expect(response.status).toBe(404);
     expect(typeof response.body).toBe('object');
     expect(response.body.error).toMatch(/Invalid endpoint/);
@@ -48,7 +48,7 @@ test('Wrong request content-type', async () => {
 });
 
 test('Empty json', async () => {
-    const response = await request.post('/api/new-user').send({});    
+    const response = await request.post('/api/new-user').send({});  
     expect(response.status).toBe(500);
     expect(typeof response.body).toBe('object');
     expect(response.body.error).toMatch(/no token sent/);
