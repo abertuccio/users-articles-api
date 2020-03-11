@@ -5,16 +5,14 @@ router.use(express.json());
 const newUser = require('./newUser');
 const newArticle = require('./newArticle');
 const editArticle = require('./editArticle');
+const deleteArticle = require('./deleteArticle');
 
-const services = {newUser,newArticle, editArticle};
+const services = {newUser,newArticle, editArticle, deleteArticle};
 
 router.post('/new-user', services.newUser);
 router.post('/new-article', services.newArticle);
 router.post('/edit-article', services.editArticle);
-
-// router.delete('/delete-article', function (req, res) {
-//     res.send('Delete Article');
-// });
+router.delete('/delete-article', services.deleteArticle);
 
 // router.get('/articles', function (req, res) {
 //     res.send('List all articles');
