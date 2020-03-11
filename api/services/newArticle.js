@@ -21,8 +21,8 @@ function newArticle(req, res) {
 
     validation(User, req.body).then(async (validation) => {
         if (validation.valid) {
-            await new Article(req.body).save();
-            res.send({ created: 'OK', error: '', valid: true });
+            const article = await new Article(req.body).save();
+            res.send({ created: {articleId:article.id}, error: '', valid: true });
         }
         else {
             res.send(validation);

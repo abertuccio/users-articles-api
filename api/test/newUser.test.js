@@ -58,6 +58,7 @@ test('valid insertion Custom avatar', async () => {
 
     const response = await request.post('/api/new-user').send({ token: process.env.TOKEN, name: "Andres Bertuccio", avatar:customAvatarURL });
     expect(response.status).toBe(200);
+    //TODO:chech created object
     expect(response.body.created.avatar).toMatch(customAvatarURL);
     testUserId = response.body.created.userId;
 });

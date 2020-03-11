@@ -1,11 +1,11 @@
-const Article = require('../model/article');
 const User = require('../model/user');
+const Article = require('../model/article');
 const authentication = require('./auth');
 const validation = require('../validators/editArticle');
 const errMsg = require('../errors/errorHandler');
 
 
-function newArticle(req, res) {
+function editArticle(req, res) {
 
     if (!req.headers['content-type'].includes("application/json")) {
         res.send(errMsg(1));
@@ -19,7 +19,7 @@ function newArticle(req, res) {
         return;
     }
 
-    validation(User, req.body).then(async (validation) => {
+    validation(User, Article, req.body).then(async (validation) => {
         if (validation.valid) {
             await Article.findOneAndUpdate({ "_id": req.body.articleId }, req.body).exec();
             res.send({ created: 'Updated', error: '', valid: true });
@@ -31,4 +31,4 @@ function newArticle(req, res) {
     })
 }
 
-module.exports = newArticle;
+module.exports = editArticle;
