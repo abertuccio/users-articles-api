@@ -1,7 +1,7 @@
 const Article = require('../model/article');
 const User = require('../model/user');
 const authentication = require('./auth');
-const validation = require('../validators/editArticle');
+const validation = require('../validators/article');
 const errMsg = require('../errors/errorHandler');
 
 
@@ -21,8 +21,8 @@ function newArticle(req, res) {
 
     validation(User, req.body).then(async (validation) => {
         if (validation.valid) {
-            await new Article(req.body).save();
-            res.send({ created: 'OK', error: '', valid: true });
+            await Article.findOneAndUpdate({ "_id": req.body.articleId }, req.body).exec();
+            res.send({ created: 'Updated', error: '', valid: true });
         }
         else {
             res.send(validation);

@@ -11,7 +11,9 @@ function errorMessaje(code) {
             break;
         case 2:
         case 9:
-            defaultError.error = `(${code}) Invalid request. You are not sending the minimun required parameter name. Please review the documentation.`;
+        case 15:
+        case 16:
+            defaultError.error = `(${code}) Invalid request. You are not sending the minimun required parameters. Please review the documentation.`;
             break;
         case 3:
             defaultError.error = `(${code}) Invalid name value. Please review the documentation.`;
@@ -32,20 +34,34 @@ function errorMessaje(code) {
             defaultError.error = `(${code}) Invalid endpoint. Please review the documentation.`;
             break;
         case 10:
+        case 18:    
             defaultError.error = `(${code}) Invalid userId. Please review the documentation.`;
             break;
         case 11:
+        case 19:    
             defaultError.error = `(${code}) Invalid title. Please review the documentation.`;
             break;
         case 12:
+        case 20:
             defaultError.error = `(${code}) Invalid text. Please review the documentation.`;
             break;
+        case 21:
         case 13:
             defaultError.error = `(${code}) Invalid tags. Please review the documentation.`;
             break;
         case 14:
+        case 22:
             defaultError.error = `(${code}) Invalid user. Please provide a valid user.`;
             break;
+        case 17:
+            defaultError.error = `(${code}) Invalid articleId. Please review the documentation.`;
+            break;
+        case 23:
+            defaultError.error = `(${code}) This article does not exist. Please review the documentation.`;
+            break;
+        case 24:
+            defaultError.error = `(${code}) This user is not the owner of the article. Please review the documentation.`;
+            break;     
         default:
             break;
     }
