@@ -13,7 +13,7 @@ function errorMessaje(code) {
         case 9:
         case 15:
         case 16:
-        case 25:
+        case 27:    
             defaultError.error = `(${code}) Invalid request. You are not sending the minimun required parameters. Please review the documentation.`;
             break;
         case 3:
@@ -52,20 +52,17 @@ function errorMessaje(code) {
             break;
         case 14:
         case 22:
-        case 27:
-        case 28:
             defaultError.error = `(${code}) Invalid user. Please provide a valid user.`;
             break;
         case 17:
-        case 26:
+        case 25:    
             defaultError.error = `(${code}) Invalid articleId. Please review the documentation.`;
             break;
         case 23:
-        case 29:
+        case 26:    
             defaultError.error = `(${code}) This article does not exist. Please review the documentation.`;
             break;
         case 24:
-        case 30:
             defaultError.error = `(${code}) This user is not the owner of the article. Please review the documentation.`;
             break;
         default:

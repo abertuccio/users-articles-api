@@ -15,135 +15,45 @@ const basicNewArticle = {
     text: `Some valid text. Other text`,
     tags: ['mistery', 'comedy']
 };
-let invalidUserId = '';
-
 
 
 beforeAll(async () => {
     const userRes = await request.post('/api/new-user').send({ token: process.env.TOKEN, name: "Test Name" });
     basicNewArticle.userId = userRes.body.created.userId;
 
-    const invalidUserRes = await request.post('/api/new-user').send({ token: process.env.TOKEN, name: "Best Name" });
-    invalidUserId = invalidUserRes.body.created.userId;
-
     const ArticleRes = await request.post('/api/new-article').send({ token: process.env.TOKEN, name: "Test Name", ...basicNewArticle });
     basicNewArticle.articleId = ArticleRes.body.created.articleId;
 });
 
-test('Invalid parameters', async () => {
-    const response = await request.delete('/api/delete-article').send({ token: process.env.TOKEN });
-    expect(response.status).toBe(200);
+test('Invalid request verb', async () => {
+    const response = await request.post('/api/delete-article').send({ token: process.env.TOKEN });        
+    expect(response.status).toBe(404);
     expect(typeof response.body).toBe('object');
-    expect(response.body.error).toMatch(/minimun required parameter/);
+    expect(response.body.error).toMatch(/Invalid endpoint/);
 });
 
-// test('inavalid userId', async () => {
+test('Invalid parameters', async () => {
+    const response = await request.delete('/api/delete-article').send({ token: process.env.TOKEN });        
+    expect(response.status).toBe(404);
+    expect(typeof response.body).toBe('object');
+    expect(response.body.error).toMatch(/Invalid endpoint/);
+});
 
-//     const article = { ...basicNewArticle };
-//     article.userId = "---!";
+test('article does not exist', async () => {
+    let articleId = '555555555555555555555555';
+    const response = await request.delete('/api/delete-article/'+articleId).send({ token: process.env.TOKEN });
+    expect(response.status).toBe(200);
+    expect(response.body.error).toMatch(/not exist/);
+});
 
-//     const response = await request.post('/api/edit-article').send({ token: process.env.TOKEN, ...article });
-//     expect(response.status).toBe(200);
-//     expect(response.body.error).toMatch(/Invalid userId/);
-
-// });
-
-// test('inavalid title', async () => {
-
-//     const article = { ...basicNewArticle };
-//     article.title = `---
-//     ...`;
-
-//     const response = await request.post('/api/edit-article').send({ token: process.env.TOKEN, ...article });
-//     expect(response.status).toBe(200);
-//     expect(response.body.error).toMatch(/Invalid title/);
-
-// });
-
-// test('inavalid text', async () => {
-
-//     const article = { ...basicNewArticle };
-//     article.text = `---
-//     mm,`;
-
-//     const response = await request.post('/api/edit-article').send({ token: process.env.TOKEN, ...article });
-//     expect(response.status).toBe(200);
-//     expect(response.body.error).toMatch(/Invalid text/);
-
-// });
-
-// test('inavalid tags format', async () => {
-
-//     const article = JSON.parse(JSON.stringify(basicNewArticle));
-//     article.tags = "some invalid array";
-
-//     const response = await request.post('/api/edit-article').send({ token: process.env.TOKEN, ...article });
-//     expect(response.status).toBe(200);
-//     expect(response.body.error).toMatch(/Invalid tags/);
-
-// });
-
-// test('inavalid tag', async () => {
-
-//     const article = JSON.parse(JSON.stringify(basicNewArticle));
-//     article.tags = ['valid', 'no spaces'];
-
-//     const response = await request.post('/api/edit-article').send({ token: process.env.TOKEN, ...article });
-//     expect(response.status).toBe(200);
-//     expect(response.body.error).toMatch(/Invalid tags/);
-
-// });
-
-// test('inavalid user', async () => {
-
-//     const article = { ...basicNewArticle };
-//     article.userId = '555555555555555555555555';
-
-//     const response = await request.post('/api/edit-article').send({ token: process.env.TOKEN, ...article });
-//     expect(response.status).toBe(200);
-//     expect(response.body.error).toMatch(/Invalid user/);
-
-// });
-
-// test('article does not exist', async () => {
-
-//     const article = { ...basicNewArticle };
-//     article.articleId = '555555555555555555555555';
-
-//     const response = await request.post('/api/edit-article').send({ token: process.env.TOKEN, ...article });
-
-//     expect(response.status).toBe(200);
-//     expect(response.body.error).toMatch(/not exist/);
-
-// });
-
-// test('wrong owner article', async () => {
-
-//     const article = { ...basicNewArticle };
-//     article.userId = invalidUserId;
-
-//     const response = await request.post('/api/edit-article').send({ token: process.env.TOKEN, ...article });
-
-//     expect(response.status).toBe(200);
-//     expect(response.body.error).toMatch(/not the owner/);
-
-// });
-
-// test('valid update', async () => {
-
-//     const article = { ...basicNewArticle };
-//     article.title = 'title changed';
-//     article.tags = basicNewArticle.tags.concat(['add', 'some', 'tags']);
-
-//     const response = await request.post('/api/edit-article').send({ token: process.env.TOKEN, ...article });
-//     expect(response.status).toBe(200);
-//     expect(response.body.error).toBe("");
-//     expect(response.body.valid).toBe(true);
-
-// });
+test('valid delete', async () => {
+    const response = await request.delete('/api/delete-article/'+basicNewArticle.articleId).send({ token: process.env.TOKEN});
+    expect(response.status).toBe(200);
+    expect(response.body.error).toBe("");
+    expect(response.body.valid).toBe(true);
+});
 
 afterAll(async () => {
     await User.deleteOne({ _id: basicNewArticle.userId }).exec();
-    await User.deleteOne({ _id: invalidUserId }).exec();
     await Article.deleteOne({ _id: basicNewArticle.articleId }).exec();
 });
