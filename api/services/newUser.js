@@ -21,7 +21,7 @@ function newUser(req, res) {
     validation(User, req.body).then(async (validation) => {
         if (validation.valid) {
             const inserted = await new User(req.body).save();
-            const created = { name: inserted.name, avatar: inserted.avatar };
+            const created = {userId:inserted._id, name: inserted.name, avatar: inserted.avatar };
             res.send({ created: created, error: '', valid: true });
         }
         else {

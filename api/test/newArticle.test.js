@@ -4,14 +4,25 @@ const supertest = require('supertest');
 const request = supertest(app);
 afterAll(() => mongoose.disconnect());
 require('dotenv').config();
+const User = require('../model/user.js');
+
 
 const basicNewArticle = {
-    userId: '5e67dbf6c2344a4d9f091c91',
+    userId: '',
     title: 'Some valid title',
     text: `Some valid text.
            other text`,
     tags: ['mistery', 'comedy']       
 }
+
+
+
+beforeAll(async () => {
+    const req = await request.post('/api/new-user').send({ token: process.env.TOKEN, name: "Test Name"}); 
+    basicNewArticle.userId = req.body.created.userId;
+  });
+
+
 
 test('Invalid parameters', async () => {
     const response = await request.post('/api/new-article').send({ token: process.env.TOKEN });
@@ -98,3 +109,7 @@ test('valid article', async () => {
     expect(response.body.valid).toBe(true);
 
 });
+
+afterAll(async () => {
+    await User.deleteOne({ _id:basicNewArticle.userId }).exec();
+  });

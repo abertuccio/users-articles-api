@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const databaseURL = (process.env.DATABASE_URL || 'localhost/');
 const database = (process.env.DATABASE || 'usersArticlesApi');
 
-mongoose.connect(`mongodb://${databaseURL}+${database}`, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(`mongodb://${databaseURL}${database}`, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const db = mongoose.connection;
 

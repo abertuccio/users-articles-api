@@ -1,7 +1,7 @@
 const Article = require('../model/article');
 const User = require('../model/user');
 const authentication = require('./auth');
-const validation = require('../validators/article');
+const validation = require('../validators/editArticle');
 const errMsg = require('../errors/errorHandler');
 
 

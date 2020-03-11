@@ -4,15 +4,9 @@ const supertest = require('supertest');
 const request = supertest(app);
 afterAll(() => mongoose.disconnect());
 require('dotenv').config();
+const User = require('../model/user.js');
+let testUserId = "";
 
-function pseudoName(){
-    const len = Math.floor(Math.random() * 49) + 3;
-    const spacePlace = Math.floor(len / 2);
-    return [...Array(len)].map((e, i) =>
-        (i === spacePlace) ? String.fromCharCode(32) :
-            String.fromCharCode(97 + Math.floor(Math.random() * 26))
-    ).join("");
-}
 
 test('Invalid parameters', async () => {
     const response = await request.post('/api/new-user').send({ token: process.env.TOKEN });
@@ -43,40 +37,42 @@ test('Empty name', async () => {
     expect(response.body.error).toMatch(/Invalid name value/);
 });
 
-test('Valid parameters, but default avatar due to no avatar property', async () => {
+test('Valid insertion, but default avatar due to no avatar property', async () => {
 
-    const response = await request.post('/api/new-user').send({ token: process.env.TOKEN, name: pseudoName() });
+    const response = await request.post('/api/new-user').send({ token: process.env.TOKEN, name: "Andres Bertuccio" });
     expect(response.status).toBe(200);
     expect(response.body.created.avatar).toMatch("https://api.adorable.io/avatars/285/abott@adorable.png");
-
+    testUserId = response.body.created.userId;
 });
 
-test('Valid parameters, but default avatar due to empty avatar value', async () => {
-
-    const response = await request.post('/api/new-user').send({ token: process.env.TOKEN, name: pseudoName(), avatar:"" });
+test('Valid insertion, but default avatar due to empty avatar value', async () => {
+    const response = await request.post('/api/new-user').send({ token: process.env.TOKEN, name: "Andres Bertuccio", avatar:"" });
     expect(response.status).toBe(200);
     expect(response.body.created.avatar).toMatch("https://api.adorable.io/avatars/285/abott@adorable.png");
-
+    testUserId = response.body.created.userId;
 });
 
-test('Custom avatar', async () => {
+test('valid insertion Custom avatar', async () => {
 
     const customAvatarURL = "http://myavatar.com"; 
 
-    const response = await request.post('/api/new-user').send({ token: process.env.TOKEN, name: pseudoName(), avatar:customAvatarURL });
+    const response = await request.post('/api/new-user').send({ token: process.env.TOKEN, name: "Andres Bertuccio", avatar:customAvatarURL });
     expect(response.status).toBe(200);
     expect(response.body.created.avatar).toMatch(customAvatarURL);
-    
+    testUserId = response.body.created.userId;
 });
 
 test('Invalid avatar URL', async () => {
 
     const customAvatarURL = "some invalid URL"; 
 
-    const response = await request.post('/api/new-user').send({ token: process.env.TOKEN, name: pseudoName(), avatar:customAvatarURL });
+    const response = await request.post('/api/new-user').send({ token: process.env.TOKEN, name: "Andres Bertuccio", avatar:customAvatarURL });
     expect(response.status).toBe(200);    
     expect(response.body.error).toMatch(/Invalid avatar value/);
     
 });
 
-
+afterEach(async () => {
+    if(testUserId)
+    await User.deleteOne({ _id:testUserId }).exec();
+  });
