@@ -1,4 +1,4 @@
-## How to run this app?
+## Getting Started
 
 ### Prepare enviroment (Optional)
 
@@ -22,7 +22,7 @@ tests will run using DATABASE=test and TOKEN=5CD4ED173E1C95FE763B753A297D5, if y
   }
 ```
 
-### Using node and mongodb installed locally on your computer
+### Run this api using node and mongodb installed locally on your computer
 
 Install this dependencies
 
@@ -55,7 +55,7 @@ npm test
 
 ```
 
-### Using docker
+### Run this api using docker
 
 Install this dependencies
 
@@ -70,5 +70,4 @@ docker-compose up
 
 ```
 
-mongodb will run on localhost:27017
-server will run on localhost:3000
+**mongodb will run on localhost:27017 and server will run on localhost:3000**
