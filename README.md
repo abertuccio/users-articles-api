@@ -1,29 +1,71 @@
-Edit/create a file .env in the root of this project and put this:
+## How to run this app?
 
-ENV=dev / prod
+## Prepare enviroment
+
+Create a file named .env in the root folder if you wish to change enviromental parameters 
+
+```
+
 PORT=3000
 DATABASE_URL=localhost/
 DATABASE=usersArticlesApi
-TOKEN=1CD1ED11111C11FE11B111A111D11
+TOKEN=5CD4ED173E1C95FE763B753A297D5
 
+```
 
-USING npm start
+tests will run using DATABASE=test and TOKEN=5CD4ED173E1C95FE763B753A297D5, if you want to change this, edit scripts.test value in package.json
 
-dependencies nodejs v12.14.0
-             mongodb v4.0.14 (without authorization)
+```
+"scripts": {
+    "start": "node start",
+    "test": "DATABASE=test TOKEN=5CD4ED173E1C95FE763B753A297D5 jest"
+  }
+```
 
-run npm install
-run npm start
+### Using node and mongodb installed locally on your computer
 
-test cases
+Install this dependencies
 
-run npm test
+* nodejs v12.14.0
+* mongodb v4.0.14
 
-USING DOCKER AND DOCKER COMPOSE 
+then..
+
+```
+cd users-articles-api
+npm install
+
+```
+##### Run the app
+
+```
+npm start
+
+```
+
+Or..
+
+##### Run tests
+
+```
+npm test
+
+```
+
+### Using docker
+
+Install this dependencies
+
+* docker v18.09.7
+* docker-compose v1.25.4
+
+open a terminal and run 
+
+```
+cd users-articles-api
+docker-compose up
+
+```
 
 mongodb will run on localhost:27017
 server will run on localhost:3000
-
-run sudo docker-compose up
-
-http://127.0.0.1:3000/api/new-user
