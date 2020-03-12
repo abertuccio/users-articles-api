@@ -70,4 +70,16 @@ docker-compose up
 
 ```
 
-**mongodb will run on localhost:27017 and server will run on localhost:3000**
+mongodb will run on **localhost:27017** and server will run on **localhost:3000** by default.
+
+
+## Endpoints
+
+* HTTP POST 'api/new-user'
+* HTTP POST 'api/new-article'
+* HTTP POST 'api/edit-article'
+* HTTP GET 'api/delete-article/'
+* HTTP GET'/all-articles'
+
+## new-user
+
