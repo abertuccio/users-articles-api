@@ -1,4 +1,4 @@
-const validation = require('../validators/auth');
+const validation = require('../validators/authentication');
 const errMsg = require('../errors/errorHandler');
 
 function authentication(req, res, next) {

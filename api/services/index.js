@@ -2,22 +2,18 @@ const express = require('express');
 const router = express.Router();
 router.use(express.json());
 
-const auth = require('./authentication');
+const authentication = require('./authentication');
 const newUser = require('./newUser');
 const newArticle = require('./newArticle');
 const editArticle = require('./editArticle');
 const deleteArticle = require('./deleteArticle');
+const allArticles = require('./allArticles');
 
-const services = { auth, newUser, newArticle, editArticle, deleteArticle };
-
-router.use(services.auth);
-router.post('/new-user', services.newUser);
-router.post('/new-article', services.newArticle);
-router.post('/edit-article', services.editArticle);
-router.delete('/delete-article/:articleId', services.deleteArticle);
-
-// router.get('/articles', function (req, res) {
-//     res.send('List all articles');
-// });
+router.use(authentication);
+router.post('/new-user', newUser);
+router.post('/new-article', newArticle);
+router.post('/edit-article', editArticle);
+router.delete('/delete-article/:articleId', deleteArticle);
+router.get('/all-articles', allArticles);
 
 module.exports = router;
