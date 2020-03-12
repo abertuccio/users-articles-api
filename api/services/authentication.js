@@ -4,9 +4,7 @@ const errMsg = require('../errors/errorHandler');
 function authentication(req, res, next) {
 
     
-    if (!('content-type' in req.headers)) {
-        return next();
-    }
+    if (!('content-type' in req.headers)) return next();
     
     if (!req.headers['content-type'].includes("application/json")) {
         return res.send(errMsg(1));

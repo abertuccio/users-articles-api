@@ -10,6 +10,7 @@ async function newArticle(req, res) {
     if (!validation.valid) return res.send(validation);
 
     const article = await new Article(req.body).save();
+    
     return res.send({
         created: {
             articleId: article.id
