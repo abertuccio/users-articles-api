@@ -18,12 +18,12 @@ const basicNewArticle = {
 beforeAll(async () => {
   const userRes = await request
     .post("/api/new-user")
-    .send({ token: process.env.TOKEN, name: "Test Name" });
+    .send({ token: process.env.TOKEN, name: "Name i" });
   basicNewArticle.userId = userRes.body.created.userId;
 
   const ArticleRes = await request
     .post("/api/new-article")
-    .send({ token: process.env.TOKEN, name: "Test Name", ...basicNewArticle });
+    .send({ token: process.env.TOKEN, name: "Name j", ...basicNewArticle });
   basicNewArticle.articleId = ArticleRes.body.created.articleId;
 });
 

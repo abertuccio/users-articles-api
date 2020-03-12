@@ -47,7 +47,7 @@ test("Empty name", async () => {
 test("Valid insertion, but default avatar due to no avatar property", async () => {
   const response = await request
     .post("/api/new-user")
-    .send({ token: process.env.TOKEN, name: "Andres Bertuccio" });
+    .send({ token: process.env.TOKEN, name: "Name a" });
   expect(response.status).toBe(200);
   expect(response.body.created.avatar).toMatch(
     "https://api.adorable.io/avatars/285/abott@adorable.png"
@@ -58,7 +58,7 @@ test("Valid insertion, but default avatar due to no avatar property", async () =
 test("Valid insertion, but default avatar due to empty avatar value", async () => {
   const response = await request
     .post("/api/new-user")
-    .send({ token: process.env.TOKEN, name: "Andres Bertuccio", avatar: "" });
+    .send({ token: process.env.TOKEN, name: "Name b", avatar: "" });
   expect(response.status).toBe(200);
   expect(response.body.created.avatar).toMatch(
     "https://api.adorable.io/avatars/285/abott@adorable.png"
@@ -73,11 +73,10 @@ test("valid insertion Custom avatar", async () => {
     .post("/api/new-user")
     .send({
       token: process.env.TOKEN,
-      name: "Andres Bertuccio",
+      name: "Name c",
       avatar: customAvatarURL
     });
   expect(response.status).toBe(200);
-  //TODO:chech created object
   expect(response.body.created.avatar).toMatch(customAvatarURL);
   testUserId = response.body.created.userId;
 });
@@ -89,7 +88,7 @@ test("Invalid avatar URL", async () => {
     .post("/api/new-user")
     .send({
       token: process.env.TOKEN,
-      name: "Andres Bertuccio",
+      name: "Name d",
       avatar: customAvatarURL
     });
   expect(response.status).toBe(200);

@@ -1,19 +1,24 @@
-// const Article = require('../model/article');
+const Article = require("../model/article");
 const validator = require("../validators/allArticles");
 
-function newArticle(req, res) {
-  const validation = validator(req.query);
+async function allArticles(req, res) {
+  const tagsParam =
+    "tags" in req.query && req.query.tags ? req.query.tags : "[]";
+  const arrayTags = JSON.parse(tagsParam) || [];
 
-  return res.send(validation);
-  // if (!validation.valid) return res.send(validation);
+  const validation = validator(arrayTags);
 
-  // await Article.findOneAndUpdate({ "_id": req.body.articleId }, req.body).exec();
-  // res.send(
-  //     {
-  //         created: 'Updated',
-  //         error: '',
-  //         valid: true
-  //     });
+  if (!validation.valid) return res.send(validation);
+
+  const query = arrayTags.length > 0 ? { tags: { $in: arrayTags } } : {};
+
+  const articles = await Article.find(query).exec();
+
+  res.send({
+    articles: articles,
+    error: "",
+    valid: true
+  });
 }
 
-module.exports = newArticle;
+module.exports = allArticles;

@@ -34,7 +34,7 @@ const basicNewArticle3 = {
 beforeAll(async () => {
   const userRes = await request
     .post("/api/new-user")
-    .send({ token: process.env.TOKEN, name: "Test Name" });
+    .send({ token: process.env.TOKEN, name: "Name K" });
   basicNewArticle.userId = userRes.body.created.userId;
   basicNewArticle2.userId = userRes.body.created.userId;
   basicNewArticle3.userId = userRes.body.created.userId;
@@ -81,7 +81,7 @@ test("valid request void tags string", async () => {
     .send({ token: process.env.TOKEN });
   expect(response.status).toBe(200);
   expect(typeof response.body).toBe("object");
-  //TODO: VERIFICAR OBJETO devuelve todo
+  expect(response.body.articles.length).toBe(3);
   expect(response.body.valid).toBe(true);
 });
 
@@ -91,7 +91,7 @@ test("valid request, no tags", async () => {
     .send({ token: process.env.TOKEN });
   expect(response.status).toBe(200);
   expect(typeof response.body).toBe("object");
-  //TODO: VERIFICAR OBJETO
+  expect(response.body.articles.length).toBe(3);
   expect(response.body.valid).toBe(true);
 });
 
@@ -102,18 +102,40 @@ test("valid request, void tags", async () => {
     .send({ token: process.env.TOKEN });
   expect(response.status).toBe(200);
   expect(typeof response.body).toBe("object");
-  //TODO: VERIFICAR OBJETO
+  expect(response.body.articles.length).toBe(3);
   expect(response.body.valid).toBe(true);
 });
 
-test("valid request", async () => {
-  const tags = ["comedy", "crime"];
+test("valid request one result", async () => {
+  const tags = ["comedy"];
   const response = await request
     .get("/api/all-articles?tags=" + JSON.stringify(tags))
     .send({ token: process.env.TOKEN });
   expect(response.status).toBe(200);
   expect(typeof response.body).toBe("object");
-  //TODO: VERIFICAR OBJETO
+  expect(response.body.articles.length).toBe(1);
+  expect(response.body.valid).toBe(true);
+});
+
+test("valid request two result", async () => {
+  const tags = ["comedy", "mistery"];
+  const response = await request
+    .get("/api/all-articles?tags=" + JSON.stringify(tags))
+    .send({ token: process.env.TOKEN });
+  expect(response.status).toBe(200);
+  expect(typeof response.body).toBe("object");
+  expect(response.body.articles.length).toBe(2);
+  expect(response.body.valid).toBe(true);
+});
+
+test("valid request two result", async () => {
+  const tags = ["action", "drama"];
+  const response = await request
+    .get("/api/all-articles?tags=" + JSON.stringify(tags))
+    .send({ token: process.env.TOKEN });
+  expect(response.status).toBe(200);
+  expect(typeof response.body).toBe("object");
+  expect(response.body.articles.length).toBe(2);
   expect(response.body.valid).toBe(true);
 });
 

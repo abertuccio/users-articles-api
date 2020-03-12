@@ -19,17 +19,17 @@ let invalidUserId = "";
 beforeAll(async () => {
   const userRes = await request
     .post("/api/new-user")
-    .send({ token: process.env.TOKEN, name: "Test Name" });
+    .send({ token: process.env.TOKEN, name: "Name f" });
   basicNewArticle.userId = userRes.body.created.userId;
 
   const invalidUserRes = await request
     .post("/api/new-user")
-    .send({ token: process.env.TOKEN, name: "Best Name" });
+    .send({ token: process.env.TOKEN, name: "Name g" });
   invalidUserId = invalidUserRes.body.created.userId;
 
   const ArticleRes = await request
     .post("/api/new-article")
-    .send({ token: process.env.TOKEN, name: "Test Name", ...basicNewArticle });
+    .send({ token: process.env.TOKEN, name: "Name h", ...basicNewArticle });
   basicNewArticle.articleId = ArticleRes.body.created.articleId;
 });
 

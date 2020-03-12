@@ -19,7 +19,7 @@ let createdArticleId = "";
 beforeAll(async () => {
   const req = await request
     .post("/api/new-user")
-    .send({ token: process.env.TOKEN, name: "New test Name" });
+    .send({ token: process.env.TOKEN, name: "Name e" });
   basicNewArticle.userId = req.body.created.userId;
 });
 
@@ -107,14 +107,13 @@ test("valid article", async () => {
     .post("/api/new-article")
     .send({ token: process.env.TOKEN, ...article });
   expect(response.status).toBe(200);
-  //TODO:chech created object
   expect(response.body.error).toBe("");
   expect(response.body.valid).toBe(true);
 
   createdArticleId = response.body.created.articleId;
 });
 
-//TODO: remove articles created
+
 afterAll(async () => {
   await User.deleteOne({ _id: basicNewArticle.userId }).exec();
 });

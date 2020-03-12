@@ -5,7 +5,7 @@
   "main": "start.js",
   "scripts": {
     "start": "node start",
-    "test": "jest"
+    "test": "DATABASE=test TOKEN=5CD4ED173E1C95FE763B753A297D5 jest"
   },
   "repository": {
     "type": "git",
