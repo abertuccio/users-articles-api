@@ -1,12 +1,12 @@
-const mongoose = require('../db/conection').mongoose;
+const mongoose = require("../db/conection").mongoose;
 
 const ArticleSchema = new mongoose.Schema({
-    userId: String,
-    title: String,
-    text: String,
-    tags: [String]
+  userId: String,
+  title: String,
+  text: String,
+  tags: [String]
 });
 
-const Article = mongoose.model('Article', ArticleSchema);
+const Article = mongoose.model("Article", ArticleSchema);
 
 module.exports = Article;
