@@ -1,22 +1,17 @@
 const Article = require('../model/article');
-const validation = require('../validators/deleteArticle');
+const validator = require('../validators/deleteArticle');
 
 
-function deleteArticle(req, res) {
+async function deleteArticle(req, res) {
 
     const articleId = (req.params.articleId || null);
+    const validation = await validator(Article, articleId);
 
- 
-    validation(Article, articleId).then(async (validation) => {
-        if (validation.valid) {
-            const article = await Article.deleteOne({ _id: req.body.articleId }).exec();
-            res.send({ deleted: {articleId:article.id}, error: '', valid: true });
-        }
-        else {
-            res.send(validation);
-            return;
-        }
-    })
+    if (!validation.valid) return res.send(validation);
+
+    const article = await Article.deleteOne({ _id: req.params.articleId }).exec();
+    res.send({ deleted: { articleId: article.id }, error: '', valid: true });
+
 }
 
 module.exports = deleteArticle;

@@ -8,21 +8,17 @@ function newArticle(req, res) {
 
     return res.send("articulos");
 
-    // validation(User, req.body).then(async (validation) => {
-    //     if (validation.valid) {
-    //         const article = await new Article(req.body).save();
-    //         return res.send({
-    //             created: {
-    //                 articleId: article.id
-    //             },
-    //             error: '',
-    //             valid: true
-    //         });
-    //     }
-    //     else {
-    //         return res.send(validation);
-    //     }
-    // })
+    // const validation = await validator(User, Article, req.body);
+
+    // if (!validation.valid) return res.send(validation);
+
+    // await Article.findOneAndUpdate({ "_id": req.body.articleId }, req.body).exec();
+    // res.send(
+    //     {
+    //         created: 'Updated',
+    //         error: '',
+    //         valid: true
+    //     });
 }
 
 module.exports = newArticle;

@@ -1,25 +1,22 @@
 const User = require('../model/user');
 const Article = require('../model/article');
-const validation = require('../validators/editArticle');
+const validator = require('../validators/editArticle');
 
 
-function editArticle(req, res) {
+async function editArticle(req, res) {
 
-    validation(User, Article, req.body).then(async (validation) => {
-        if (validation.valid) {
-            await Article.findOneAndUpdate({ "_id": req.body.articleId }, req.body).exec();
-            res.send(
-                {
-                    created: 'Updated',
-                    error: '',
-                    valid: true
-                });
-        }
-        else {
-            res.send(validation);
-            return;
-        }
-    })
+    const validation = await validator(User, Article, req.body);
+
+    if (!validation.valid) return res.send(validation);
+
+    await Article.findOneAndUpdate({ "_id": req.body.articleId }, req.body).exec();
+    res.send(
+        {
+            created: 'Updated',
+            error: '',
+            valid: true
+        });
+
 }
 
 module.exports = editArticle;
