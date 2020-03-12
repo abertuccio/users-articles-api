@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const services = require("./services/");
+const services = require("./services/services");
 const errMsg = require("./errors/errorHandler");
 
 app.use("/api", services);
