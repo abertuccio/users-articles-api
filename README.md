@@ -77,7 +77,7 @@ mongodb will run on **localhost:27017** and server will run on **localhost:3000*
 - HTTP POST 'api/new-user'
 - HTTP POST 'api/new-article'
 - HTTP POST 'api/edit-article'
-- HTTP GET 'api/delete-article/'
+- HTTP DELETE 'api/delete-article/'
 - HTTP GET'/all-articles'
 
 All request must have the `content-type : application/json` header.
@@ -138,3 +138,72 @@ To create a new article you must send a POST request sending a json using this s
 - `text`: 3 to 4000 English letters, spaces, comma symbol (,), period symbol (.) and line breaks.
 - `tags`: Array of one or unlimmited strings contained 3 to 50 lowercase English letters. Example ` ['sometag','othertag']`
 
+## Edit article
+
+The user sent must be the same as the article creator. 
+
+To edit an article you must send a POST request including at least `articleId` and `userId` and at least one of `title`, `text` or `tags` properties:
+
+```javascript
+    {
+        token: VALID_TOKEN,
+        userId: String,
+        title: String,
+        text: String,
+        tags: [String]
+    }
+```
+
+also Valid
+
+```javascript
+    {
+        token: VALID_TOKEN,
+        userId: String,
+        text: String
+    }
+```
+
+### Accepted values
+
+The same rules as new article
+
+
+## Delete article
+
+As I said in the beginning, token must be sent in the body `{ token: VALID_TOKEN }` depite of this is not a POST requst. This is the way it is for simplicity.
+
+To delete an article you must send a DELETE request sending the article id as a part of the URL as this example:
+
+```
+https://localhost/api/delete-article/5e5d11e7114a2b37ee248f90
+
+```
+
+### Accepted values
+
+- Article Id: 24 alphanumeric characters belonging to an existing article in the database.
+
+
+## All articles
+
+As I said in the beginning, token must be sent in the body `{ token: VALID_TOKEN }` depite of this is not a POST requst. This is the way it is for simplicity.
+
+To list all articles you must send a GET request, optionaly indicating a `tags` array as query parameter, like this examples:
+
+To list all articles:
+```
+https://localhost/api/all-articles
+
+```
+
+To list all articles containing at least one of the tags "comedy" or "action" :
+```
+https://localhost/api/all-articles?tags=["comedy","action"]
+
+```
+
+
+### Accepted values
+
+The rules for tags are the same as the rules used in New article tags.

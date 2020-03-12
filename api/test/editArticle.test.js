@@ -147,6 +147,19 @@ test("valid update", async () => {
   expect(response.body.valid).toBe(true);
 });
 
+test("valid update", async () => {
+  // eslint-disable-next-line no-unused-vars
+  const { title, ...article } = basicNewArticle
+  article.text = "There is a change";
+
+  const response = await request
+    .post("/api/edit-article")
+    .send({ token: process.env.TOKEN, ...article });
+  expect(response.status).toBe(200);
+  expect(response.body.error).toBe("");
+  expect(response.body.valid).toBe(true);
+});
+
 afterAll(async () => {
   await User.deleteOne({ _id: basicNewArticle.userId }).exec();
   await User.deleteOne({ _id: invalidUserId }).exec();
