@@ -1,6 +1,6 @@
 ## How to run this app?
 
-## Prepare enviroment
+### Prepare enviroment (Optional)
 
 Create a file named .env in the root folder if you wish to change enviromental parameters 
 
@@ -15,7 +15,7 @@ TOKEN=5CD4ED173E1C95FE763B753A297D5
 
 tests will run using DATABASE=test and TOKEN=5CD4ED173E1C95FE763B753A297D5, if you want to change this, edit scripts.test value in package.json
 
-```
+```javascript
 "scripts": {
     "start": "node start",
     "test": "DATABASE=test TOKEN=5CD4ED173E1C95FE763B753A297D5 jest"
@@ -36,6 +36,9 @@ cd users-articles-api
 npm install
 
 ```
+
+** mongod process ** must be started, see [Docs](https://docs.mongodb.com/manual/tutorial/manage-mongodb-processes/)
+
 ##### Run the app
 
 ```
