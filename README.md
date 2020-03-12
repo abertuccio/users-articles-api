@@ -48,10 +48,17 @@ npm start
 
 Or..
 
-##### Run tests
+##### Run tests 
 
 ```
 npm test
+
+```
+
+to run tests individually (recomended) 
+
+```
+npm test -- allArticles
 
 ```
 
