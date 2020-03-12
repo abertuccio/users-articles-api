@@ -47,6 +47,7 @@ function errorMessaje(code) {
       break;
     case 21:
     case 13:
+    case 28:
       defaultError.error = `(${code}) Invalid tags. Please review the documentation.`;
       break;
     case 14:

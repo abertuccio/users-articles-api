@@ -65,13 +65,56 @@ test("Invalid verb", async () => {
   expect(response.body.error).toMatch(/Invalid endpoint/);
 });
 
-test("valid request", async () => {
+test("invalid request, wrong tags", async () => {
+  const tags = ["one", "t-wo"];
   const response = await request
-    .get("/api/all-articles?tags=1,2")
+    .get("/api/all-articles?tags=" + JSON.stringify(tags))
     .send({ token: process.env.TOKEN });
   expect(response.status).toBe(200);
   expect(typeof response.body).toBe("object");
-  expect(response.body.error).toMatch(/Invalid endpoint/);
+  expect(response.body.error).toMatch(/Invalid tags/);
+});
+test("valid request void tags string", async () => {
+  const tags = "";
+  const response = await request
+    .get("/api/all-articles?tags=" + JSON.stringify(tags))
+    .send({ token: process.env.TOKEN });
+  expect(response.status).toBe(200);
+  expect(typeof response.body).toBe("object");
+  //TODO: VERIFICAR OBJETO devuelve todo
+  expect(response.body.valid).toBe(true);
+});
+
+test("valid request, no tags", async () => {
+  const response = await request
+    .get("/api/all-articles")
+    .send({ token: process.env.TOKEN });
+  expect(response.status).toBe(200);
+  expect(typeof response.body).toBe("object");
+  //TODO: VERIFICAR OBJETO
+  expect(response.body.valid).toBe(true);
+});
+
+test("valid request, void tags", async () => {
+  const tags = "";
+  const response = await request
+    .get("/api/all-articles?tags=" + JSON.stringify(tags))
+    .send({ token: process.env.TOKEN });
+  expect(response.status).toBe(200);
+  expect(typeof response.body).toBe("object");
+  //TODO: VERIFICAR OBJETO
+  expect(response.body.valid).toBe(true);
+});
+
+test("valid request", async () => {
+  const tags = ["comedy", "crime"];
+  const response = await request
+    .get("/api/all-articles?tags=" + JSON.stringify(tags))
+    .send({ token: process.env.TOKEN });
+  expect(response.status).toBe(200);
+  expect(typeof response.body).toBe("object");
+  //TODO: VERIFICAR OBJETO
+  expect(response.body.valid).toBe(true);
 });
 
 afterAll(async () => {
