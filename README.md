@@ -37,7 +37,7 @@ npm install
 
 ```
 
-The ** mongod process ** must be started, see [Docs](https://docs.mongodb.com/manual/tutorial/manage-mongodb-processes/)
+The **mongod process** must be started, see [Docs](https://docs.mongodb.com/manual/tutorial/manage-mongodb-processes/)
 
 ##### Run the app
 
