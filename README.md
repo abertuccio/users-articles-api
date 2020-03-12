@@ -55,7 +55,7 @@ npm test
 
 ```
 
-to run tests individually (recomended) add `-- ` and part of the name of files under `/test` folder, example to run `allArticles.test.js`: 
+To run tests individually (recomended) add `-- ` and part of the name of files under `/test` folder, example to run `allArticles.test.js`: 
 
 ```
 npm test -- allArticles
